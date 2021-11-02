@@ -9,7 +9,6 @@ import manipulacionImagen as mi
 from PIL import Image
 from pymongo import MongoClient
 
-
 uri = "mongodb+srv://Oscar:1234@appimagenes.uvok1.mongodb.net/AppImagenes?retryWrites=true&w=majority"
 cliente = MongoClient(uri)
 AppImagenes = cliente["AppImagenes"]
