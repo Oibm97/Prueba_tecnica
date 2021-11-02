@@ -5,7 +5,6 @@ Created on Tue Oct 26 17:50:26 2021
 
 @author: oibm
 """
-
 import manipulacionImagen as mi
 from PIL import Image
 from pymongo import MongoClient

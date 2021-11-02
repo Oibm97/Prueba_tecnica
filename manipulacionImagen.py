@@ -5,6 +5,7 @@ Created on Tue Oct 26 16:25:20 2021
 
 @author: oibm
 """
+
 from PIL import Image
 from pymongo import MongoClient
 import os
