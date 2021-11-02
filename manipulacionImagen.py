@@ -10,6 +10,7 @@ from PIL import Image
 from pymongo import MongoClient
 import os
 
+
 uri = "mongodb+srv://Oscar:1234@appimagenes.uvok1.mongodb.net/AppImagenes?retryWrites=true&w=majority"
 cliente = MongoClient(uri)
 AppImagenes = cliente["AppImagenes"]
