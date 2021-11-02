@@ -51,6 +51,7 @@ def cargar_imagen(nombre_imagen:str, ubicacion:str)->None:
     Errores:
     NA
     """ 
+    
     indice, objetoLista, directorio = info_listas(ubicacion)
     datosFoto = {"id":indice+1, "Nombre imagen":nombre_imagen}
     objetoLista.insert_one(datosFoto)
@@ -122,23 +123,23 @@ def encontrar_tamano(orientacion:str, hojaA4:tuple, ancho:int, alto:int)-> tuple
     -ancho(int): Ancho de la imagen cargada.
     -alto(int): Alto de la imagen cargada.
     Salidas:
-    -tamaño(tuple): Una tupla con el nuevo tamaño de la imagen con un error de 0.5%. 
+    -tamaño(tuple): Una tupla con el nuevo tamaño de la imagen con un error de 0.05%. 
     Errores:
     NA
     """
     
-    ratio = round((max(ancho,alto)/min(ancho,alto)),2)
-    error = 0.005
+    ratio = round((max(ancho,alto)/min(ancho,alto)),4)
+    error = 0.0005
     topeMax = ratio*(1+error)
     topeMin = ratio*(1-error)
     
     i = 1
     j = 1
-    areaMinima = 100000*100000
+    areaMinima = 1000000*1000000
     
-    for i in range(1,hojaA4[0]):
-        for j in range(1,hojaA4[1]):
-            nuevoRatio = round((max(i,j)/min(i,j)),2)
+    for i in range(1,hojaA4[0]+1):
+        for j in range(1,hojaA4[1]+1):
+            nuevoRatio = round((max(i,j)/min(i,j)),4)
             area = hojaA4[0]*hojaA4[1] - i*j
             if nuevoRatio <= topeMax and nuevoRatio >= topeMin:
                 

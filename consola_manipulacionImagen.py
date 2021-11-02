@@ -6,12 +6,9 @@ Created on Tue Oct 26 17:50:26 2021
 @author: oibm
 """
 import manipulacionImagen as mi
+from manipulacionImagen import AppImagenes
 from PIL import Image
-from pymongo import MongoClient
 
-uri = "mongodb+srv://Oscar:1234@appimagenes.uvok1.mongodb.net/AppImagenes?retryWrites=true&w=majority"
-cliente = MongoClient(uri)
-AppImagenes = cliente["AppImagenes"]
 Lista_Fotos = AppImagenes["Lista_Fotos"]
 Lista_Fotos_Modificadas = AppImagenes["Lista_Fotos_Modificadas"]
 
