@@ -57,10 +57,10 @@ class testManipulacionImagen(unittest.TestCase):
     def test_procesar_imagen_vertical(self):
 
         imagen = Image.open("ImagenTestVertical.jpg")
-        nueva_Imagen = mi.procesar_imagen(imagen)
+        nuevaImagen = mi.procesar_imagen(imagen)
         
 
-        ancho = nueva_Imagen.width
-        alto = nueva_Imagen.height
+        ancho = nuevaImagen.width
+        alto = nuevaImagen.height
         tamano = (ancho,alto)
         self.assertEqual(tamano, (1123,750))
