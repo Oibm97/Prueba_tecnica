@@ -8,6 +8,7 @@ Created on Tue Nov 2 11:11:00 2021
 
 import manipulacionImagen as mi
 import unittest
+from PIL import Image
 
 class testManipulacionImagen(unittest.TestCase):
 
@@ -42,6 +43,24 @@ class testManipulacionImagen(unittest.TestCase):
         tamano = mi.encontrar_tamano(orientacion, hojaA4, ancho, alto)
         self.assertEqual(tamano, (955,796))   
 
+    
+    def test_procesar_imagen_horizontal(self):
 
-# if __name__ == '__main__':
-#     unittest.main
+        imagen = Image.open("ImagenTestHorizontal.jpg")
+        nuevaImagen = mi.procesar_imagen(imagen)
+
+        ancho = nuevaImagen.width
+        alto = nuevaImagen.height
+        tamano = (ancho,alto)
+        self.assertEqual(tamano, (1123,750))
+
+    def test_procesar_imagen_vertical(self):
+
+        imagen = Image.open("ImagenTestVertical.jpg")
+        nuevaImagen = mi.procesar_imagen(imagen)
+        
+
+        ancho = nuevaImagen.width
+        alto = nuevaImagen.height
+        tamano = (ancho,alto)
+        self.assertEqual(tamano, (1123,750))
