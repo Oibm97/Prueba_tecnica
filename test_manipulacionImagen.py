@@ -63,4 +63,4 @@ class testManipulacionImagen(unittest.TestCase):
         ancho = nuevaimagen.width
         alto = nuevaimagen.height
         tamano = (ancho,alto)
-        self.assertEqual(tamano, (1123,750))
+        self.assertEqual(tamano, (796,1085))
