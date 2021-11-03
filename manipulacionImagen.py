@@ -13,6 +13,7 @@ import os
 uri = "mongodb+srv://Oscar:1234@appimagenes.uvok1.mongodb.net/AppImagenes?retryWrites=true&w=majority"
 cliente = MongoClient(uri)
 AppImagenes = cliente["AppImagenes"]
+columna1 = "Nombre imagen"
 
 def info_listas(ubicacion:str):
     """
@@ -27,16 +28,16 @@ def info_listas(ubicacion:str):
     -directorio(str): Nombre de la dirección donde se ubican las fotos. 
     """
     if ubicacion == "Lista_Fotos":
-        objetoLista = AppImagenes["Lista_Fotos"]
+        objetolista = AppImagenes["Lista_Fotos"]
         directorio = "Imagenes/"
 
     if ubicacion == "Lista_Fotos_Modificadas":
-        objetoLista = AppImagenes["Lista_Fotos_Modificadas"]
+        objetolista = AppImagenes["Lista_Fotos_Modificadas"]
         directorio = "Imagenes_modificadas/"
 
-    indice = objetoLista.estimated_document_count()
+    indice = objetolista.estimated_document_count()
 
-    return indice, objetoLista, directorio
+    return indice, objetolista, directorio
 
 def cargar_imagen(nombre_imagen:str, ubicacion:str)->None:
     """ 
@@ -52,9 +53,9 @@ def cargar_imagen(nombre_imagen:str, ubicacion:str)->None:
     NA
     """ 
     
-    indice, objetoLista, directorio = info_listas(ubicacion)
-    datosFoto = {"id":indice+1, "Nombre imagen":nombre_imagen}
-    objetoLista.insert_one(datosFoto)
+    indice, objetolista, directorio = info_listas(ubicacion)
+    datosfoto = {"id":indice+1, columna1:nombre_imagen}
+    objetolista.insert_one(datosfoto)
 
 def mostrar_basedatos(ubicacion:str):
     """
@@ -68,10 +69,10 @@ def mostrar_basedatos(ubicacion:str):
     Errores:
     Na
     """    
-    indice, objetoLista, directorio = info_listas(ubicacion)
+    indice, objetolista, directorio = info_listas(ubicacion)
     print("")
-    for i in objetoLista.find():
-        print(i["id"]," ",i["Nombre imagen"])
+    for i in objetolista.find():
+        print(i["id"]," ",i[columna1])
     
 
 def seleccionar_imagen(imagen_seleccionada:int, ubicacion:str)->Image:
@@ -86,10 +87,10 @@ def seleccionar_imagen(imagen_seleccionada:int, ubicacion:str)->Image:
     Errores:
     NA
     """
-    indice, objetoLista, directorio = info_listas(ubicacion)
+    indice, objetolista, directorio = info_listas(ubicacion)
 
-    imagen = objetoLista.find_one({"id":imagen_seleccionada})
-    nombre_imagen = directorio + imagen["Nombre imagen"]
+    imagen = objetolista.find_one({"id":imagen_seleccionada})
+    nombre_imagen = directorio + imagen[columna1]
     imagen = Image.open(nombre_imagen)
 
     return imagen
@@ -107,7 +108,7 @@ def mostrar_imagen(imagen:Image)->None:
     """
     imagen.show()
     
-def encontrar_tamano(orientacion:str, hojaA4:tuple, ancho:int, alto:int)-> tuple:
+def encontrar_tamano(orientacion:str, hojaa4:tuple, ancho:int, alto:int)-> tuple:
     """
     Descripción:
     Función que calcula las nuevas dimensiones de la imagen requeridos para entrar en una hoja tamaño A4. Las nuevas dimensiones son calculadas con un error
@@ -130,20 +131,20 @@ def encontrar_tamano(orientacion:str, hojaA4:tuple, ancho:int, alto:int)-> tuple
     
     ratio = round((max(ancho,alto)/min(ancho,alto)),4)
     error = 0.0005
-    topeMax = ratio*(1+error)
-    topeMin = ratio*(1-error)
+    topemax = ratio*(1+error)
+    topemin = ratio*(1-error)
     
     i = 1
     j = 1
-    areaMinima = 1000000*1000000
+    areaminima = 1000000*1000000
     
-    for i in range(1,hojaA4[0]+1):
-        for j in range(1,hojaA4[1]+1):
-            nuevoRatio = round((max(i,j)/min(i,j)),4)
-            area = hojaA4[0]*hojaA4[1] - i*j
-            if nuevoRatio <= topeMax and nuevoRatio >= topeMin:
+    for i in range(1,hojaa4[0]+1):
+        for j in range(1,hojaa4[1]+1):
+            nuevoratio = round((max(i,j)/min(i,j)),4)
+            area = hojaa4[0]*hojaa4[1] - i*j
+            if nuevoratio <= topemax and nuevoratio >= topemin:
                 
-                areaMinima = min(areaMinima,area)
+                areaminima = min(areaminima,area)
                 
                 if orientacion == "Vertical":
                     ancho = min(i,j)
@@ -153,8 +154,8 @@ def encontrar_tamano(orientacion:str, hojaA4:tuple, ancho:int, alto:int)-> tuple
                     ancho = max(i,j)
                     alto = min(i,j)
     
-    tamaño = (ancho,alto)
-    return tamaño        
+    tamano = (ancho,alto)
+    return tamano        
 
 def procesar_imagen(imagen:Image)->Image:
     """
@@ -173,28 +174,28 @@ def procesar_imagen(imagen:Image)->Image:
     
     mensaje = "\nLa imagen no fue modificada.\n"
     
-    tamaño = (ancho,alto)
+    tamano = (ancho,alto)
     
     orientacion = None
     if alto > ancho:
         orientacion = "Vertical"
-        hojaA4 = (796,1123)
+        hojaa4 = (796,1123)
         
     elif alto <= ancho:
         orientacion = "Horizontal"
-        hojaA4 = (1123,796)
+        hojaa4 = (1123,796)
     
-    if hojaA4[0] <= ancho or hojaA4[1] <= alto:
-        tamaño = encontrar_tamano(orientacion, hojaA4, ancho, alto)
-        mensaje = "\nLas nuevas dimensiones de la imagen son: \n\nAncho: " + str(tamaño[0]) + " pixeles" + "\nAlto: " + str(tamaño[1]) + " pixeles"
+    if hojaa4[0] <= ancho or hojaa4[1] <= alto:
+        tamano = encontrar_tamano(orientacion, hojaa4, ancho, alto)
+        mensaje = "\nLas nuevas dimensiones de la imagen son: \n\nAncho: " + str(tamano[0]) + " pixeles" + "\nAlto: " + str(tamano[1]) + " pixeles"
     
-    nuevaImagen = imagen.resize(tamaño)
+    nuevaimagen = imagen.resize(tamano)
     
-    nuevaImagen.show()
+    nuevaimagen.show()
     
     print(mensaje)
     
-    return nuevaImagen
+    return nuevaimagen
 
 def guardar_imagen(imagen:Image, nombre_imagen:str,ubicacion:str):
     """  
@@ -225,11 +226,11 @@ def eliminar_imagen(imagen_seleccionada:int, ubicacion:str)->None:
     Errores:
     NA
     """    
-    indice, objetoLista, directorio = info_listas(ubicacion)
-    imagen = objetoLista.find_one({"id":imagen_seleccionada})
+    indice, objetolista, directorio = info_listas(ubicacion)
+    imagen = objetolista.find_one({"id":imagen_seleccionada})
 
     for i in range(imagen_seleccionada+1, indice+1):
-        objetoLista.update_one({"id":i},{"$inc":{"id":-1}})
+        objetolista.update_one({"id":i},{"$inc":{"id":-1}})
     
-    objetoLista.delete_one({"_id":imagen["_id"]})
-    os.remove(directorio+imagen["Nombre imagen"])
+    objetolista.delete_one({"_id":imagen["_id"]})
+    os.remove(directorio+imagen[columna1])

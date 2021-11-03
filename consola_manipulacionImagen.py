@@ -78,9 +78,9 @@ def ejecutar_mostrar_imagen(ubicacion:str)->None:
     Errores:
     NA
     """
-    indice, objetoLista, directorio = mi.info_listas(ubicacion)
+    indice, objetolista, directorio = mi.info_listas(ubicacion)
 
-    indice = objetoLista.estimated_document_count()
+    indice = objetolista.estimated_document_count()
 
     if indice > 0:
         ejecutar_mostrar_basedatos(ubicacion)
@@ -123,12 +123,12 @@ def ejecutar_procesar_imagen():
                 print("2. No")
                 guardar = input("\nDesea guardar la imagen?: ")
                 if guardar == "1":
-                    nombreValido = False
-                    while nombreValido == False:
+                    nombrevalido = False
+                    while nombrevalido == False:
                         try:
                             nombre_imagen = input("\nNombre de la imagen con la extensión (JPG): ")
                             mi.guardar_imagen(imagen, nombre_imagen, "Lista_Fotos_Modificadas")
-                            nombreValido = True
+                            nombrevalido = True
                             print("\nLa imagen fue cargada correctamente.")
                         except:
                             print("\nIngrese un nombre válido.")
@@ -150,18 +150,19 @@ def ejecutar_eliminar_imagen()->None:
     Errores:
     NA  
     """
-    numeroValido = False
-    while numeroValido == False:
+    numerovalido = False
+    while numerovalido == False:
         try:    
             print("\n1. Lista_Fotos")
             print("2. Lista_Fotos_Modificadas")
             ubicacion = input("\nEscoja la ubicación: ")
             if ubicacion == "1":
                 ubicacion = "Lista_Fotos"
-                indice = Lista_Fotos.estimated_document_count()
             elif ubicacion == "2":
                 ubicacion = "Lista_Fotos_Modificadas"
-                indice = Lista_Fotos_Modificadas.estimated_document_count()
+
+            indice, objetolista, directorio = mi.info_listas(ubicacion)
+            
             if indice > 0:
                 ejecutar_mostrar_basedatos(ubicacion)
                 eliminado = False
@@ -175,7 +176,7 @@ def ejecutar_eliminar_imagen()->None:
                         print("\nIngrese un numero válido.")
             else:
                 print("\nCargue y/o procese una imagen para poder realizar esta acción.")
-            numeroValido = True
+            numerovalido = True
         except:
             print("\nIngrese un numero válido")
 
