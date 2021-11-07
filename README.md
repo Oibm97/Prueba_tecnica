@@ -10,7 +10,7 @@
 <<pip install -r requirements.text>>
 
 -Iniciar la aplicación con:
-<<python consola_manipulacionImagen.py>>
+python consola_manipulacionImagen.py
   
 -Debe añadir en la carpeta <<Imagenes>> las fotos que desea usar en la aplicación (formato jpg).   
   
