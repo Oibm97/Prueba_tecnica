@@ -7,12 +7,12 @@
 -Si lo desea cree un entorno virtual para no instalar las dependencias directamente en su máquina. 
 
 -Desde la carpeta creada (Prueba), ejecutar:
-<<pip install -r requirements.text>>
+pip install -r requirements.text
 
 -Iniciar la aplicación con:
 python consola_manipulacionImagen.py
   
--Debe añadir en la carpeta <<<Imagenes>>> las fotos que desea usar en la aplicación (formato jpg).   
+-Debe añadir en la carpeta Imagenes las fotos que desea usar en la aplicación (formato jpg).   
   
   
   
