@@ -11,3 +11,9 @@
 
 -Iniciar la aplicación con:
 <<python consola_manipulacionImagen.py>>
+  
+  
+  
+  
+  
+  
