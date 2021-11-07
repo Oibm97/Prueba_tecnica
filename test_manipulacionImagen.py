@@ -5,12 +5,15 @@ Created on Tue Nov 2 11:11:00 2021
 
 @author: oibm
 """
+"""
+Test de pruebas unitarias para el archivo <<manipulaciónImagen.py>>
+"""
 
 import manipulacionImagen as mi
 import unittest
 from PIL import Image
 
-class testManipulacionImagen(unittest.TestCase):
+class test_manipulacion_imagen(unittest.TestCase):
 
     def test_encontrar_tamano_vertical_mayor(self):
 

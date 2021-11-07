@@ -15,7 +15,7 @@ cliente = MongoClient(uri)
 AppImagenes = cliente["AppImagenes"]
 columna1 = "Nombre imagen"
 
-def info_listas(ubicacion:str):
+def info_listas(ubicacion:str)->tuple:
     """
     Descripción:
     Función que accede a determinados valores de las Colecciones creadas en la Base de datos.
@@ -47,27 +47,19 @@ def cargar_imagen(nombre_imagen:str, ubicacion:str)->None:
     -nombre_imagen(str): Nombre de la foto
     -ubicacion(str): Nombre de la carpeta que contiene las imágenes a usar <<Imagenes/>> o la carpeta donde se almacenarán 
     las imágenes modificadas <<Imagenes_modificadas>>. Representan cada una las Colecciones usadas en la Base de Datos.
-    Salidas:
-    NA
-    Errores:
-    NA
     """ 
     
     indice, objetolista, directorio = info_listas(ubicacion)
     datosfoto = {"id":indice+1, columna1:nombre_imagen}
     objetolista.insert_one(datosfoto)
 
-def mostrar_basedatos(ubicacion:str):
+def mostrar_basedatos(ubicacion:str)->None:
     """
     Descripción:
     Función que despliega la lista de fotos guardadas en una determinada Colección de la base de datos de Mongodb.
     Parámetros:
     -ubicacion(str): Nombre de la carpeta que contiene las imágenes a usar <<Imagenes/>> o la carpeta donde se almacenarán 
     las imágenes modificadas <<Imagenes_modificadas>>. Representan cada una las Colecciones usadas en la Base de Datos.
-    Salidas:
-    NA
-    Errores:
-    Na
     """    
     indice, objetolista, directorio = info_listas(ubicacion)
     print("")
@@ -84,8 +76,6 @@ def seleccionar_imagen(imagen_seleccionada:int, ubicacion:str)->Image:
     -ubicacion(str): Nombre de la Colección donde se encuentra la información de la imagen a mostrar. 
     Salidas:
     -imagen(Image): Imagen que desea ser abierta.
-    Errores:
-    NA
     """
     indice, objetolista, directorio = info_listas(ubicacion)
 
@@ -101,12 +91,9 @@ def mostrar_imagen(imagen:Image)->None:
     Función que muestra la imagen que entra por parámetro con un visualizador externo.
     Parametros:
     -imagen(Image): Imagen cargada previamente. 
-    Salidas:
-    NA
-    Errores:
-    NA
     """
     imagen.show()
+    
     
 def encontrar_tamano(orientacion:str, hojaa4:tuple, ancho:int, alto:int)-> tuple:
     """
@@ -125,8 +112,6 @@ def encontrar_tamano(orientacion:str, hojaa4:tuple, ancho:int, alto:int)-> tuple
     -alto(int): Alto de la imagen cargada.
     Salidas:
     -tamaño(tuple): Una tupla con el nuevo tamaño de la imagen con un error de 0.05%. 
-    Errores:
-    NA
     """
     
     ratio = round((max(ancho,alto)/min(ancho,alto)),4)
@@ -165,8 +150,6 @@ def procesar_imagen(imagen:Image)->Image:
     -imagen(Image): Imagen cargada previamente. 
     Salidas:
     -nuevaImagen(Image): Imagen con las nuevas dimensiones de acuerdo a las restricciones del problema. 
-    Errores:
-    NA
     """
     
     ancho = imagen.width
@@ -187,7 +170,7 @@ def procesar_imagen(imagen:Image)->Image:
     
     if hojaa4[0] <= ancho or hojaa4[1] <= alto:
         tamano = encontrar_tamano(orientacion, hojaa4, ancho, alto)
-        mensaje = "\nLas nuevas dimensiones de la imagen son: \n\nAncho: " + str(tamano[0]) + " pixeles" + "\nAlto: " + str(tamano[1]) + " pixeles"
+        mensaje = f"\nLas nuevas dimensiones de la imagen son: \n\nAncho: {tamano[0]} pixeles \nAlto: {tamano[1]} pixeles"
     
     nuevaimagen = imagen.resize(tamano)
     
@@ -197,7 +180,7 @@ def procesar_imagen(imagen:Image)->Image:
     
     return nuevaimagen
 
-def guardar_imagen(imagen:Image, nombre_imagen:str,ubicacion:str):
+def guardar_imagen(imagen:Image, nombre_imagen:str,ubicacion:str)->None:
     """  
     Descripción:
     Función que guarda la imagen modificada en la carpeta para tal fin y que guarda su información en la base de datos en la Colección adecuada. 
@@ -205,10 +188,6 @@ def guardar_imagen(imagen:Image, nombre_imagen:str,ubicacion:str):
     -imagen(Image): Imagen a guardar
     -nombre_imagen(str): Nombre que el usuario ingresa para guardar la imagen. 
     -ubicacion(str): Nombre de la Colección donde se encuentra la información de la imagen a guardar. 
-    Salidas:
-    NA
-    Errores:
-    NA
     """
     
     imagen.save("Imagenes_modificadas/"+nombre_imagen)
@@ -221,10 +200,6 @@ def eliminar_imagen(imagen_seleccionada:int, ubicacion:str)->None:
     Parámetros:
     -imagen_seleccionada(int): Valor entero con el índice de la imagen que el usuario desea eliminar de una Colección determinada.
     -ubicacion(str): Nombre de la Colección donde se encuentra la información de la imagen a guardar. 
-    Salidas:
-    NA
-    Errores:
-    NA
     """    
     indice, objetolista, directorio = info_listas(ubicacion)
     imagen = objetolista.find_one({"id":imagen_seleccionada})
