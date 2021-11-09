@@ -5,14 +5,18 @@ Created on Tue Nov 2 11:11:00 2021
 
 Test de pruebas unitarias para el archivo <<manipulaciónImagen.py>>
 """
-import manipulacionImagen as mi
 import unittest
+import manipulacion_imagen as mi
 from PIL import Image
 
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 class test_manipulacion_imagen(unittest.TestCase):
+    """
+    Descripción:
+    Clase que modela las pruebas unitarias.
+    """
 
     def test_encontrar_tamano_vertical_mayor(self):
         """

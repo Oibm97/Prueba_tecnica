@@ -5,8 +5,8 @@ Created on Tue Oct 26 17:50:26 2021
 
 @author: oibm
 """
-import manipulacionImagen as mi
-from manipulacionImagen import AppImagenes
+import manipulacion_imagen as mi
+from manipulacion_imagen import AppImagenes
 from PIL import Image
 
 Lista_Fotos = AppImagenes["Lista_Fotos"]
@@ -17,14 +17,14 @@ def ejecutar_cargar_imagen(ubicacion:str)->None:
     Descripción:
     Ejecuta la función que carga la imagen solicitada en una Colección determinada.
     Parametros:
-    -ubicacion(str): Nombre de la Colección donde se encuentra la información de la imagen a guardar. 
+    -ubicacion(str): Nombre de la Colección donde se encuentra la información de la imagen a guardar.
     Errores:
     -El nombre tiene que incluir la extención adecuada.
     -El nombre debe corresponder con el de una imagene en la carpeta <<Imagenes>>
     -El numero de imágenes a agregar debe corresponder con una entrada tipo <<int>>
     """
     cantidad_imagenes = int(input("\nCuántas imágenes desea agregar? (0 para cancelar): "))
-    
+
     if cantidad_imagenes != 0:
         try:
             while cantidad_imagenes > 0:
@@ -42,21 +42,21 @@ def ejecutar_cargar_imagen(ubicacion:str)->None:
             print("\nIngrese un numero válido")
 
 def ejecutar_mostrar_basedatos(ubicacion:str)->None:
-    """  
+    """
     Descripción:
-    Ejecuta la función para mostrar el listado de objetos de una Colección determinada dentro de la base de datos. 
+    Ejecuta la función para mostrar el listado de objetos de una Colección determinada dentro de la base de datos.
     Parámetros:
-    -ubicacion(str): Nombre de la Colección donde se encuentra la información de la imagenes para ser mostradas en una lista. 
+    -ubicacion(str): Nombre de la Colección donde se encuentra la información de la imagenes para ser mostradas en una lista.
     """
     mi.mostrar_basedatos(ubicacion)
 
 def ejecutar_seleccionar_imagen(imagen_seleccionada:int, ubicacion:str)->Image:
     """
     Descripción:
-    Ejecuta la función que retorna la imagen que desea ser mostrada en pantalla. 
+    Ejecuta la función que retorna la imagen que desea ser mostrada en pantalla.
     Parámetros:
     -imagen_seleccionada(int): Indice de la imagen que desea ser abierta en una Colección determinada.
-    -ubicacion(str): Nombre de la Colección donde se encuentra la información de la imagen a mostrar. 
+    -ubicacion(str): Nombre de la Colección donde se encuentra la información de la imagen a mostrar.
     Salidas:
     -imagen(Image): Imagen que desea ser abierta.
     """
@@ -71,7 +71,7 @@ def ejecutar_mostrar_imagen(ubicacion:str)->None:
     -imagen(Image): Imagen cargada
     Errores:
     -Debe existir al menos una imagen en la carpetas <<Imagenes>> y/o <<Imagenes_modificadas>>.
-    -El numero de la imagen a mostrar debe corresponder al de alguna imagen en la base de datos. 
+    -El numero de la imagen a mostrar debe corresponder al de alguna imagen en la base de datos.
     """
     indice, objetolista = mi.info_listas(ubicacion)[0], mi.info_listas(ubicacion)[1]
     indice = objetolista.estimated_document_count()
@@ -143,14 +143,14 @@ def ejecutar_procesar_imagen()->None:
 def ejecutar_eliminar_imagen()->None:
     """
     Descripción:
-    Ejecuta la función que elimina la imagen de la base de datos y de la carpeta donde se encuentra guardada. 
+    Ejecuta la función que elimina la imagen de la base de datos y de la carpeta donde se encuentra guardada.
     Parámetros:
     -imagen_seleccionada(int): Valor entero con el índice de la imagen que el usuario desea eliminar de una Colección determinada.
-    -ubicacion(str): Nombre de la Colección donde se encuentra la información de la imagen a guardar. 
+    -ubicacion(str): Nombre de la Colección donde se encuentra la información de la imagen a guardar.
     Errores:
     -El numero de las carpetas para eliminar la imagen debe corresponder al de la lista dada.
-    -Debe existir al menos una imagene en la carpeta elegida para poder ser eliminada. 
-    -El numero de la imagen a eliminar debe corresponder al de alguna imagen en la base de datos. 
+    -Debe existir al menos una imagene en la carpeta elegida para poder ser eliminada.
+    -El numero de la imagen a eliminar debe corresponder al de alguna imagen en la base de datos.
     """
     numerovalido = False
     while numerovalido == False:
@@ -206,7 +206,7 @@ def iniciar_aplicacion()->None:
     """
     Descripción:
     Función para iniciar la aplicación.
-    Ejecuta el menú y solicita un numero para llevar a cabo una acción determinada. 
+    Ejecuta el menú y solicita un numero para llevar a cabo una acción determinada.
     """
     continuar = True
     while continuar:
