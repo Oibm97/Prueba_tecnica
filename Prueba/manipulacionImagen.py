@@ -209,3 +209,4 @@ def eliminar_imagen(imagen_seleccionada:int, ubicacion:str)->None:
     
     objetolista.delete_one({"_id":imagen["_id"]})
     os.remove(directorio+imagen[columna1])
+    
