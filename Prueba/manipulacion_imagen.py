@@ -49,7 +49,7 @@ def cargar_imagen(nombre_imagen:str, ubicacion:str)->None:
     las imágenes modificadas <<Imagenes_modificadas>>. Representan cada una las Colecciones usadas en la Base de Datos.
     """ 
     
-    indice, objetolista, directorio = info_listas(ubicacion)
+    indice, objetolista = info_listas(ubicacion)[0], info_listas(ubicacion)[1]
     datosfoto = {"id":indice+1, columna1:nombre_imagen}
     objetolista.insert_one(datosfoto)
 
@@ -61,7 +61,7 @@ def mostrar_basedatos(ubicacion:str)->None:
     -ubicacion(str): Nombre de la carpeta que contiene las imágenes a usar <<Imagenes/>> o la carpeta donde se almacenarán 
     las imágenes modificadas <<Imagenes_modificadas>>. Representan cada una las Colecciones usadas en la Base de Datos.
     """    
-    indice, objetolista, directorio = info_listas(ubicacion)
+    objetolista = info_listas(ubicacion)[1]
     print("")
     for i in objetolista.find():
         print(i["id"]," ",i[columna1])
@@ -77,7 +77,7 @@ def seleccionar_imagen(imagen_seleccionada:int, ubicacion:str)->Image:
     Salidas:
     -imagen(Image): Imagen que desea ser abierta.
     """
-    indice, objetolista, directorio = info_listas(ubicacion)
+    objetolista, directorio = info_listas(ubicacion)[1],info_listas(ubicacion)[2]
 
     imagen = objetolista.find_one({"id":imagen_seleccionada})
     nombre_imagen = directorio + imagen[columna1]

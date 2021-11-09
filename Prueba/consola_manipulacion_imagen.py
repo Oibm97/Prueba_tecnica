@@ -73,7 +73,7 @@ def ejecutar_mostrar_imagen(ubicacion:str)->None:
     -Debe existir al menos una imagen en la carpetas <<Imagenes>> y/o <<Imagenes_modificadas>>.
     -El numero de la imagen a mostrar debe corresponder al de alguna imagen en la base de datos. 
     """
-    indice, objetolista, directorio = mi.info_listas(ubicacion)
+    indice, objetolista = mi.info_listas(ubicacion)[0], mi.info_listas(ubicacion)[1]
     indice = objetolista.estimated_document_count()
 
     if indice > 0:
@@ -165,7 +165,7 @@ def ejecutar_eliminar_imagen()->None:
             elif ubicacion == "2":
                 ubicacion = "Lista_Fotos_Modificadas"
 
-            indice, objetolista, directorio = mi.info_listas(ubicacion)
+            indice = mi.info_listas(ubicacion)[0]
             
             if indice > 0:
                 ejecutar_mostrar_basedatos(ubicacion)
