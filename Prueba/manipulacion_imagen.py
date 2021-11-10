@@ -4,6 +4,8 @@
 Created on Tue Oct 26 16:25:20 2021
     
 @author: oibm
+
+Backend de la aplicación
 """
 
 import os

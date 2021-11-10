@@ -4,6 +4,8 @@
 Created on Tue Oct 26 17:50:26 2021
 
 @author: oibm
+
+Consola para uso de la aplicación
 """
 import manipulacion_imagen as mi
 from manipulacion_imagen import AppImagenes
