@@ -95,3 +95,14 @@ class test_manipulacion_imagen(unittest.TestCase):
         alto = nuevaimagen.height
         tamano = (ancho,alto)
         self.assertEqual(tamano, (796,1085))
+
+    def test_seleccionar_imagen(self):
+        """
+        Descripción:
+        Función para verificar que la imagen seleccionada coincide con la que se encuentra
+        guardada en la máquina. 
+        """
+
+        imagen1 = mi.seleccionar_imagen(1,"Lista_Fotos")
+        imagen2 = Image.open("Imagenes/test.jpg")
+        self.assertEqual(print(imagen1),print(imagen2))
